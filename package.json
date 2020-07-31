@@ -1,0 +1,26 @@
+{
+  "name": "recipe-api",
+  "version": "1.0.0",
+  "description": "simple api that returns a recipe list based on ingredients received as parameters",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/api.js",
+    "start": "node src/api.js",
+    "test": "mocha './test/*.spec.js'"
+  },
+  "author": "Jose Lehmkuhl",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "eslint": "^7.5.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "mocha": "^8.1.0",
+    "nodemon": "^2.0.4"
+  }
+}
