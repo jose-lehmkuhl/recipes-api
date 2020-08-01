@@ -13,4 +13,12 @@ describe('GIF module tests', () => {
     expect(typeof response.url).to.be.equal('string');
     expect(response.url.includes('https://')).to.be.equal(true);
   });
+
+  it('should succeed without an gif url if not found', async () => {
+    const response = await controller.getGif('notFoundRecipeNameParameter');
+
+    expect(response.status).to.be.equal(200);
+    expect(typeof response.url).to.be.equal('string');
+    expect(response.url).to.be.equal('NO GIFS FOUND FOR THIS RECIPE TITLE');
+  });
 });
