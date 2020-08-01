@@ -19,7 +19,7 @@ GifController.getGif = async (recipeName) => {
 
   if (response.status === 200) {
     const { data } = response.data;
-    if (data.length > 0) return GifController.successResponse(data[0].url);
+    if (data.length > 0) return GifController.successResponse(data[0].images.original.url);
     return GifController.successResponse('NO GIFS FOUND FOR THIS RECIPE TITLE');
   }
 
