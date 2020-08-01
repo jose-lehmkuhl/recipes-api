@@ -28,4 +28,12 @@ describe('API tests', () => {
     expect(response.statusCode).to.be.equal(400);
     expect(response.body.error).to.be.equal('Maximum of 3 ingredients allowed');
   });
+
+  it('should return an empty array when no recipes are found', async () => {
+    const response = await requester.get('/recipes/?i=notFoundIngredient');
+
+    expect(response.statusCode).to.be.equal(200);
+    expect(response.body.keywords).to.be.deep.equal(['notFoundIngredient']);
+    expect(response.body.recipes).to.be.deep.equal([]);
+  });
 });
