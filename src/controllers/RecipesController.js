@@ -19,7 +19,7 @@ RecipesController.recipeMapper = async ({ title, href, ingredients }) => {
   const gifResponse = await getGif(title);
   return {
     title,
-    ingredients,
+    ingredients: ingredients.split(', ').sort(),
     link: href,
     gif: gifResponse.url || '',
   };
