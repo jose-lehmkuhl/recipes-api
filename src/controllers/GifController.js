@@ -4,6 +4,11 @@ const GifController = {};
 
 GifController.baseUrl = 'https://api.giphy.com/v1/gifs/search';
 
+GifController.apiStatus = async () => {
+  const response = await gifRequest(GifController.baseUrl, 'test');
+  if (response.status === 200) return true;
+  return false;
+};
 GifController.successResponse = (url) => ({
   status: 200,
   url,

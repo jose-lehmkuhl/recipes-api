@@ -1,4 +1,4 @@
-const { getGif } = require('./GifController');
+const { getGif, apiStatus } = require('./GifController');
 const { getRecipes } = require('./ExternalRecipesController');
 
 const RecipesController = {};
@@ -48,6 +48,8 @@ RecipesController.getRecipes = async (req, res) => {
   const ingredientsArray = ingredients.split(',');
   if (ingredientsArray.length > 3) return RecipesController.recipesError('Maximum of 3 ingredients allowed', res);
 
+  const gifApiStatus = await apiStatus();
+  if (!gifApiStatus) return res.status(500).json({ error: 'gif service is down' });
   return RecipesController.externalRecipeHandler(ingredients, res);
 };
 
