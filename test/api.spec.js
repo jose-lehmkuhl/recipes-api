@@ -36,4 +36,14 @@ describe('API tests', () => {
     expect(response.body.keywords).to.be.deep.equal(['notFoundIngredient']);
     expect(response.body.recipes).to.be.deep.equal([]);
   });
+
+  it('should return a recipe list with gifs', async () => {
+    const response = await requester.get('/recipes/?i=cheese,egg,onion');
+
+    const { keywords, recipes } = response.body;
+    expect(response.statusCode).to.be.equal(200);
+    expect(keywords).to.be.deep.equal(['cheese', 'egg', 'onion']);
+    expect(recipes.length).to.be.gt(1);
+    expect(Object.keys(recipes[0])).to.be.deep.eq(['title', 'ingredients', 'link', 'gif']);
+  });
 });
