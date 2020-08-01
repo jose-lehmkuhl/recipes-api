@@ -4,8 +4,8 @@
   "description": "simple api that returns a recipe list based on ingredients received as parameters",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/api.js",
-    "start": "node src/api.js",
+    "dev": "nodemon src/app.js",
+    "start": "node src/app.js",
     "test": "mocha './test/*.spec.js'"
   },
   "author": "Jose Lehmkuhl",
