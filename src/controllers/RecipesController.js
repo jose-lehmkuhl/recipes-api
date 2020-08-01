@@ -15,11 +15,30 @@ RecipesController.externalError = (externalResponse, res) => res.status(external
   response: externalResponse,
 });
 
+RecipesController.recipeMapper = async ({ title, href, ingredients }) => {
+  const gifResponse = await getGif(title);
+  return {
+    title,
+    ingredients,
+    link: href,
+    gif: gifResponse.url || '',
+  };
+};
+
+RecipesController.gifHandler = async (ingredientsArray, recipes, res) => {
+  const mappedRecipes = await Promise.all(recipes.map(RecipesController.recipeMapper));
+
+  return res.status(200).json(RecipesController.responseObject(ingredientsArray, mappedRecipes));
+};
+
 RecipesController.externalRecipeHandler = async (ingredients, res) => {
   const recipesResponse = await getRecipes(ingredients);
   if (recipesResponse.status !== 200) return RecipesController.externalError(recipesResponse, res);
   const { recipes } = recipesResponse;
-  if (recipes.length === 0) return res.status(200).json(RecipesController.responseObject(ingredients.split(','), recipes));
+  const ingredientsArray = ingredients.split(',');
+  if (recipes.length === 0) return res.status(200).json(RecipesController.responseObject(ingredientsArray, recipes));
+
+  return RecipesController.gifHandler(ingredientsArray, recipes, res);
 };
 
 RecipesController.getRecipes = async (req, res) => {
