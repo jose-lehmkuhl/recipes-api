@@ -4,15 +4,19 @@ const GifController = {};
 
 GifController.baseUrl = 'https://api.giphy.com/v1/gifs/search';
 
-GifController.successResponse = (response) => ({
+GifController.successResponse = (url) => ({
   status: 200,
-  url: response.data.data[0].url,
+  url,
 });
 
 GifController.getGif = async (recipeName) => {
   const response = await gifRequest(GifController.baseUrl, recipeName);
 
-  if (response.status === 200) return GifController.successResponse(response);
+  if (response.status === 200) {
+    const { data } = response.data;
+    if (data.length > 0) return GifController.successResponse(data[0].url);
+    return GifController.successResponse('NO GIFS FOUND FOR THIS RECIPE TITLE');
+  }
 
   return response;
 };
